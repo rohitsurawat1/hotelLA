@@ -28,7 +28,13 @@ export default function Header() {
     >
       <div className="container mx-auto px-4 py-4">
         <div className="flex justify-between items-center">
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-4 md:hidden">
+            <button className="text-white" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
+          
+          <div className="hidden md:flex items-center space-x-4">
             <Link href="tel:+1234567890" className="text-white hover:text-gold transition-colors">
               <Phone size={20} />
             </Link>
@@ -47,12 +53,12 @@ export default function Header() {
             </Select>
           </div>
           
-          <Link href="/" className="text-3xl font-bold text-white pl-28">
+          <Link href="/" className="text-3xl font-bold text-white lg:pl-40">
             HotelLA
           </Link>
           
           <div className="flex items-center space-x-4">
-            <div className="relative">
+            <div className="relative hidden md:block">
               <input
                 type="text"
                 placeholder="Search"
@@ -66,23 +72,21 @@ export default function Header() {
           </div>
         </div>
         <div className="flex justify-center mt-4">
-          <nav className="hidden lg:flex space-x-8">
+          <nav className="hidden md:flex space-x-8">
             <Link href="/rooms" className="text-white hover:text-gold transition-colors">Rooms</Link>
-            <Link href="/rooms" className="text-white hover:text-gold transition-colors">Suites</Link>
+            <Link href="/suites" className="text-white hover:text-gold transition-colors">Suites</Link>
             <Link href="/dining" className="text-white hover:text-gold transition-colors">Dining</Link>
             <Link href="/spa" className="text-white hover:text-gold transition-colors">Spa</Link>
             <Link href="/experiences" className="text-white hover:text-gold transition-colors">Experiences</Link>
             <Link href="/offers" className="text-white hover:text-gold transition-colors">Offers</Link>
           </nav>
-          <button className="lg:hidden text-white" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
         </div>
       </div>
       {isMenuOpen && (
-        <div className="lg:hidden bg-black bg-opacity-90 text-white">
+        <div className="md:hidden bg-black bg-opacity-90 text-white">
           <nav className="flex flex-col items-center py-4">
-            <Link href="/rooms" className="py-2 hover:text-gold transition-colors">Rooms & Suites</Link>
+            <Link href="/rooms" className="py-2 hover:text-gold transition-colors">Rooms</Link>
+            <Link href="/suites" className="py-2 hover:text-gold transition-colors">Suites</Link>
             <Link href="/dining" className="py-2 hover:text-gold transition-colors">Dining</Link>
             <Link href="/spa" className="py-2 hover:text-gold transition-colors">Spa</Link>
             <Link href="/experiences" className="py-2 hover:text-gold transition-colors">Experiences</Link>
