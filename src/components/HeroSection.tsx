@@ -3,10 +3,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { Play, Pause } from 'lucide-react';
-import Video01 from '../public/Videos/hero1.mp4';
-import Video02 from '../public/Videos/hero2.mp4';
-import Video03 from '../public/Videos/hero3.mp4';
-import Video04 from '../public/Videos/hero4.mp4';
+import Video01 from '../../public/Videos/hero1.mp4';
+import Video02 from '../../public/Videos/hero2.mp4';
+import Video03 from '../../public/Videos/hero3.mp4';
+import Video04 from '../../public/Videos/hero4.mp4';
 
 const videos = [Video01, Video02, Video03, Video04];
 
@@ -71,7 +71,7 @@ export default function HeroSection() {
         <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
           <Link
             href="/book"
-            className="bg-gold text-black px-8 py-3 rounded text-lg font-semibold hover:bg-gold-dark transition-colors text-center"
+            className="bg-white text-black px-8 py-3 rounded text-lg font-semibold hover:bg-[#0b132d] hover:text-white transition-colors text-center"
           >
             Book Now
           </Link>

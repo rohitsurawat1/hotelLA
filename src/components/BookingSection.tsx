@@ -2,17 +2,41 @@
 
 import { useState } from 'react'
 import { Calendar, ChevronDown } from 'lucide-react'
+import { useToast } from "../hooks/use-toast"
+import { Button } from "@/components/ui/button"
 
 export default function BookingSection() {
-  const [checkIn, setCheckIn] = useState('')
-  const [checkOut, setCheckOut] = useState('')
-  const [adults, setAdults] = useState(2)
-  const [children, setChildren] = useState(0)
+  const [bookingData, setBookingData] = useState({
+    checkIn: '',
+    checkOut: '',
+    adults: 2,
+    children: 0
+  })
+  const { toast } = useToast()
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value } = e.target
+    setBookingData(prev => ({ ...prev, [name]: value }))
+  }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    // Handle booking logic here
-    console.log('Booking submitted:', { checkIn, checkOut, adults, children })
+    // Here you would typically send this data to your backend
+    console.log('Booking submitted:', bookingData)
+    
+    // Show a success toast
+    toast({
+      title: "Booking Request Submitted",
+      description: `Check-in: ${bookingData.checkIn}, Check-out: ${bookingData.checkOut}, Adults: ${bookingData.adults}, Children: ${bookingData.children}`,
+    })
+
+    // Reset form after submission
+    setBookingData({
+      checkIn: '',
+      checkOut: '',
+      adults: 2,
+      children: 0
+    })
   }
 
   return (
@@ -27,9 +51,10 @@ export default function BookingSection() {
               <input
                 className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 id="check-in"
+                name="checkIn"
                 type="date"
-                value={checkIn}
-                onChange={(e) => setCheckIn(e.target.value)}
+                value={bookingData.checkIn}
+                onChange={handleInputChange}
                 required
               />
               <Calendar className="absolute right-3 top-2 text-gray-400" size={20} />
@@ -43,24 +68,26 @@ export default function BookingSection() {
               <input
                 className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 id="check-out"
+                name="checkOut"
                 type="date"
-                value={checkOut}
-                onChange={(e) => setCheckOut(e.target.value)}
+                value={bookingData.checkOut}
+                onChange={handleInputChange}
                 required
               />
               <Calendar className="absolute right-3 top-2 text-gray-400" size={20} />
             </div>
           </div>
           <div className="w-full md:w-1/4 px-2 mb-4 md:mb-0">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="guests">
-              Guests
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="adults">
+              Adults
             </label>
             <div className="relative">
               <select
                 className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 id="adults"
-                value={adults}
-                onChange={(e) => setAdults(Number(e.target.value))}
+                name="adults"
+                value={bookingData.adults}
+                onChange={handleInputChange}
               >
                 {[1, 2, 3, 4, 5].map((num) => (
                   <option key={num} value={num}>
@@ -79,8 +106,9 @@ export default function BookingSection() {
               <select
                 className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 id="children"
-                value={children}
-                onChange={(e) => setChildren(Number(e.target.value))}
+                name="children"
+                value={bookingData.children}
+                onChange={handleInputChange}
               >
                 {[0, 1, 2, 3, 4].map((num) => (
                   <option key={num} value={num}>
@@ -92,12 +120,12 @@ export default function BookingSection() {
             </div>
           </div>
           <div className="w-full mt-6">
-            <button
-              className="bg-gold hover:bg-gold-dark text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"
+            <Button
+              className="bg-[#0b132d] hover:bg-[#162044] text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full transition duration-300"
               type="submit"
             >
               Check Availability
-            </button>
+            </Button>
           </div>
         </form>
       </div>
