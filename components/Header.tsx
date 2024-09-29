@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { Menu, X, Search, Phone, Mail } from 'lucide-react'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../src/components/ui/select"
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -21,7 +21,7 @@ export default function Header() {
   return (
     <header 
       className={`fixed w-full z-50 transition-all duration-300 ${
-        isScrolled || isHovered ? 'bg-black bg-opacity-80' : 'bg-transparent'
+        isScrolled || isHovered ? 'bg-[#0b132d] bg-opacity-100' : 'bg-transparent'
       }`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -66,7 +66,7 @@ export default function Header() {
               />
               <Search className="absolute right-2 top-1/2 transform -translate-y-1/2 text-white" size={18} />
             </div>
-            <Link href="/book" className="bg-gold text-black px-4 py-2 rounded hover:bg-gold-dark transition-colors">
+            <Link href="/book" className="bg-white text-black px-4 py-2 rounded hover:bg-[#0b132d] hover:text-white transition-colors">
               Book Now
             </Link>
           </div>
@@ -83,7 +83,7 @@ export default function Header() {
         </div>
       </div>
       {isMenuOpen && (
-        <div className="md:hidden bg-black bg-opacity-90 text-white">
+        <div className="md:hidden bg-[#0b132d] bg-opacity-90 text-white">
           <nav className="flex flex-col items-center py-4">
             <Link href="/rooms" className="py-2 hover:text-gold transition-colors">Rooms</Link>
             <Link href="/suites" className="py-2 hover:text-gold transition-colors">Suites</Link>
