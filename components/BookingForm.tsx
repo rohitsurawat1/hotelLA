@@ -1,9 +1,16 @@
 'use client'
 
 import { useState } from 'react'
-import { DateRangePicker } from 'react-date-range'
+import { DateRangePicker, RangeKeyDict } from 'react-date-range'
 import 'react-date-range/dist/styles.css'
 import 'react-date-range/dist/theme/default.css'
+
+// Define a type for the selection
+interface DateRangeSelection {
+  startDate?: Date;
+  endDate?: Date;
+  key: string;
+}
 
 export default function BookingForm() {
   const [dateRange, setDateRange] = useState({
@@ -12,6 +19,17 @@ export default function BookingForm() {
     key: 'selection'
   })
   const [guests, setGuests] = useState(1)
+
+  const handleSelect = (ranges: RangeKeyDict) => {
+    const selection = ranges.selection as DateRangeSelection;
+    if (selection.startDate && selection.endDate) {
+      setDateRange({
+        startDate: selection.startDate,
+        endDate: selection.endDate,
+        key: selection.key
+      });
+    }
+  }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -26,7 +44,7 @@ export default function BookingForm() {
           <label htmlFor="dates" className="block text-sm font-medium text-gray-700 mb-1">Dates</label>
           <DateRangePicker
             ranges={[dateRange]}
-            onChange={item => setDateRange(item.selection)}
+            onChange={handleSelect}
             className="w-full"
           />
         </div>
